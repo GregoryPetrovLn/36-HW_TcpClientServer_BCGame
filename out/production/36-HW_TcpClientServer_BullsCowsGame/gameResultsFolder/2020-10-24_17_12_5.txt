@@ -1,0 +1,5 @@
+1)guess number : 1234, bulls: 0, cows: 3
+2)guess number : 4356, bulls: 1, cows: 1
+3)guess number : 5678987, bulls: 0, cows: 1
+4)guess number : fdgh, bulls: 0, cows: 0
+5)guess number : 4512, bulls: 4, cows: 0
