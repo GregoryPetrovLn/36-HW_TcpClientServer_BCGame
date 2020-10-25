@@ -1,4 +1,4 @@
-package game;
+package consoleGame.game;
 
 public interface GuessGame {
     String startGame();

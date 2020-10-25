@@ -1,8 +1,7 @@
-package client;
+package consoleGame.client;
 
-import game.Move;
+import consoleGame.common.TcpCommon;
 
-import javax.xml.stream.events.StartDocument;
 import java.io.IOException;
 import java.util.*;
 
@@ -14,11 +13,10 @@ public class TcpClientGameAppl {
     private static final String EMPTY_REQUEST_DATA = null;
     private static final String GET_RESULTS = "getResults";
 
-    private static final int PORT = 4000;
-    private static final String HOST = "localhost";
+
 
     public static void main(String[] args) throws IOException {
-        TcpClientGame client = new TcpClientGame(HOST, PORT);
+        TcpClientGame client = new TcpClientGame(TcpCommon.SERVER_HOST, TcpCommon.SERVER_PORT);
         String answer;
         String line;
         Scanner scanner = new Scanner(System.in);
@@ -53,7 +51,7 @@ public class TcpClientGameAppl {
                     if (client.send(IS_FINISHED, EMPTY_REQUEST_DATA).equalsIgnoreCase("finish")) {
                         client.send(GET_RESULTS, EMPTY_REQUEST_DATA);
 
-                        System.out.println("Nice game! One more time?yes/no");
+                        System.out.println("Nice consoleGame.game! One more time?yes/no");
                         isStarted = scanner.nextLine();
                         if (isStarted.equalsIgnoreCase("yes")) {
                             answer = client.send(START, EMPTY_REQUEST_DATA);
@@ -77,7 +75,7 @@ public class TcpClientGameAppl {
             }
 
         } else {
-            System.out.println("Okay, as you wish.\nclient closed connection...");
+            System.out.println("Okay, as you wish.\nconsoleGame.client closed connection...");
             scanner.close();
             client.close();
         }

@@ -1,12 +1,13 @@
 package telran.net.server;
 
-import telran.net.RequestJava;
-import telran.net.ResponseJava;
+import telran.net.common.ProtocolRequest;
+import telran.net.common.ProtocolResponse;
+import telran.net.common.ProtocolJava;
 
 import java.io.*;
 import java.net.*;
 
-public class ServerClientJava implements Runnable {
+public class ClientSessionHandler implements Runnable {
     //получаем данные от клиента
     ObjectInputStream input;
 
@@ -17,7 +18,7 @@ public class ServerClientJava implements Runnable {
     ProtocolJava protocol;
 
     //формирование протокола для соединения сервер-клиент
-    public ServerClientJava(Socket socket, ProtocolJava protocol) {
+    public ClientSessionHandler(Socket socket, ProtocolJava protocol) {
         try {
             input = new ObjectInputStream(socket.getInputStream());
             output = new ObjectOutputStream(socket.getOutputStream());
@@ -36,18 +37,18 @@ public class ServerClientJava implements Runnable {
             //формируем запрос у сервера и отдаем ему данные из сокета клиента
             try {
                 //читаем из сокета
-                RequestJava request = (RequestJava) input.readObject();
+                ProtocolRequest request = (ProtocolRequest) input.readObject();
 
                 //отдаем в интерфейс с протоколом и получаем от сервера ответ
-                ResponseJava response = protocol.getResponse(request);
+                ProtocolResponse response = protocol.getResponse(request);
 
                 //отправляем ответ клиенту
                 output.writeObject(response);
             } catch (EOFException e) {
-                System.out.println("client closed connection");
+                System.out.println("consoleGame.client closed connection");
                 break;
             } catch (Exception e) {
-                System.out.println("client abnormally closed connection " + e.getMessage());
+                System.out.println("consoleGame.client abnormally closed connection " + e.getMessage());
                 break;
             }
         }

@@ -1,6 +1,6 @@
-package client;
+package consoleGame.client;
 
-import telran.net.TcpClient;
+import telran.net.common.TcpClient;
 
 public class TcpClientGame extends TcpClient {
 

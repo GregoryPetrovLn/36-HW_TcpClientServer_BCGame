@@ -1,4 +1,4 @@
-package game;
+package consoleGame.game;
 
 public class Move {
     private int bullsCows[];

@@ -1,6 +1,7 @@
-package telran.net;
-import telran.net.RequestJava;
-import telran.net.ResponseJava;
+package telran.net.common;
+
+import telran.net.common.*;
+
 
 import java.io.*;
 import java.net.*;
@@ -35,15 +36,15 @@ public class TcpClient implements Closeable {
 
     protected <T> T sendRequest(String requestType, Serializable requestData){
 
-        //формирует запрос объект RequestJava с полями : requestType, requestData
-        RequestJava request = new RequestJava(requestType, requestData);
+        //формирует запрос объект ProtocolRequest с полями : requestType, requestData
+        ProtocolRequest request = new ProtocolRequest(requestType, requestData);
 
         try{
             outputStream.writeObject(request);
-            ResponseJava response = (ResponseJava) inputStream.readObject();
+            ProtocolResponse response = (ProtocolResponse) inputStream.readObject();
 
 
-            if(response.code != TcpResponseCode.OK){
+            if(response.code != ResponseCode.OK){
                 throw new Exception(response.responseData.toString());
             }
 

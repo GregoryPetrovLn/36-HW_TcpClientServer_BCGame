@@ -1,10 +1,12 @@
 package telran.net.server;
 
+import telran.net.common.ProtocolJava;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerJava implements Runnable {
+public class TcpServer implements Runnable {
     //сокет для получения данных от клиента
     ServerSocket serverSocket;
     int port;
@@ -13,7 +15,7 @@ public class ServerJava implements Runnable {
     ProtocolJava protocol;
 
     //открываю сервер
-    public ServerJava(int port, ProtocolJava protocol) {
+    public TcpServer(int port, ProtocolJava protocol) {
         this.port = port;
         this.protocol = protocol;
 
@@ -32,7 +34,7 @@ public class ServerJava implements Runnable {
         try {
             while (true) {
                 Socket socket = serverSocket.accept();
-                ServerClientJava client = new ServerClientJava(socket, protocol);
+                ClientSessionHandler client = new ClientSessionHandler(socket, protocol);
                 client.run();
             }
         } catch (Exception e) {
